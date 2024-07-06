@@ -29,14 +29,23 @@ const setUpQuiz = (data) => {
     const incorrectAnswers = item.incorrect_answers.map((answer) =>
       unescapeHtml(answer)
     );
-
+    const possibleAnswers = shuffleArray([...incorrectAnswers, correctAnswer]);
     // Push formatted data into quizData array
     quizData.push({
       question: question,
       correctAnswer: correctAnswer,
-      possibleAnswers: [...incorrectAnswers, correctAnswer],
+      possibleAnswers: possibleAnswers,
     });
   });
+};
+
+// Function to shuffle an array
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 };
 
 // DOM elements
